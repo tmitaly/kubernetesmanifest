@@ -10,13 +10,13 @@ node {
     stage('Update GIT') {
             script {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'githubtmitaly', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
-                        sh "git config user.email luca.defassi@gmail.com"
-                        sh "git config user.name fadefa88"
+                        sh "git config user.email alloftrenditalygithub@trendmicro.com"
+                        sh "git config user.name tmitaly"
                         //sh "git switch master"
                         sh "cat deployment.yaml"
-                        sh "sed -i 's+fadefa88/test.*+fadefa88/test:${DOCKERTAG}+g' deployment.yaml"
+                        sh "sed -i 's+trenditalydocker/webpage.*+trenditalydocker/webpage:${DOCKERTAG}+g' deployment.yaml"
                         sh "cat deployment.yaml"
                         sh "git add ."
                         sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
