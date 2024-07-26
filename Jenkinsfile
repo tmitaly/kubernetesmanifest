@@ -21,9 +21,12 @@ node {
 
                     // Leggi il digest dell'immagine dal parametro DOCKERTAG
                     def newDigest = env.DOCKERTAG
+                    echo "New Digest: ${newDigest}"
 
-                    // Aggiorna il file deployment.yaml con il nuovo digest
-                    sh "sed -i 's+trenditalydocker/webpage@sha256:[a-f0-9]\\{64\\}+trenditalydocker/webpage@sha256:${newDigest}+g' deployment.yaml"
+                    // Usa un delimitatore diverso per sed e aggiungi debug per il comando
+                    def sedCommand = "sed -i 's|trenditalydocker/webpage@sha256:[a-f0-9]\\{64\\}|trenditalydocker/webpage@sha256:${newDigest}|g' deployment.yaml"
+                    echo "Running command: ${sedCommand}"
+                    sh "${sedCommand}"
 
                     // Mostra le modifiche apportate al file
                     echo '--- Updated deployment.yaml ---'
