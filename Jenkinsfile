@@ -14,9 +14,8 @@ node {
                     sh "git config user.email alloftrenditalygithub@trendmicro.com"
                     sh "git config user.name tmitaly"
                     
-                    // Modifica il file deployment.yaml
-                    sh "sed -i 's+trenditalydocker/webpage.*+trenditalydocker/webpage:${DOCKERTAG}+g' deployment.yaml"
-                    sh "sed -i 's+flaskdemo+pippo+g' deployment.yaml"
+                    // Modifica il file deployment.yaml per sostituire l'immagine con il digest
+                    sh "sed -i 's+trenditalydocker/webpage:latest+trenditalydocker/webpage@${DOCKERTAG}+g' deployment.yaml"
                     
                     // Aggiungi, committa e push le modifiche
                     sh "git add ."
