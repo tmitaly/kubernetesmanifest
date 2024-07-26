@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: pippo
-  name: pippo
+    app: flaskdemo
+  name: flaskdemo
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: pippo
+      app: flaskdemo
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: pippo
+        app: flaskdemo
     spec:
       containers:
       - image: trenditalydocker/webpage:latest
-        name: pippo
+        name: flaskdemo
         resources: {}
 status: {}
 ---
@@ -35,4 +35,4 @@ spec:
   - port: 80
     targetPort: 5000
   selector:
-    app: pippo
+    app: flaskdemo
