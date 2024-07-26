@@ -6,7 +6,6 @@ node {
         checkout scm
     }
         stage('Get Image Digest') {
-            steps {
                 script {
                     // Login to Docker Hub
                     withCredentials([usernamePassword(credentialsId: 'dockertmitaly', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
@@ -29,7 +28,7 @@ node {
                     // Save the digest in an environment variable for subsequent steps
                     env.IMAGE_DIGEST = sha
                 }
-            }
+          
         }
     stage('Update GIT') {
         script {
