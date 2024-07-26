@@ -6,13 +6,9 @@ node {
     }
 
     stage('Show Original Deployment YAML') {
-        steps {
-            script {
-                // Mostra il contenuto originale di deployment.yaml
-                sh "echo '--- Original deployment.yaml ---'"
-                sh "cat deployment.yaml"
-            }
-        }
+        // Mostra il contenuto originale di deployment.yaml
+        echo '--- Original deployment.yaml ---'
+        sh "cat deployment.yaml"
     }
 
     stage('Update GIT') {
@@ -30,7 +26,7 @@ node {
                     sh "sed -i 's+trenditalydocker/webpage@sha256:[a-f0-9]\\{64\\}+trenditalydocker/webpage@sha256:${newDigest}+g' deployment.yaml"
 
                     // Mostra le modifiche apportate al file
-                    sh "echo '--- Updated deployment.yaml ---'"
+                    echo '--- Updated deployment.yaml ---'
                     sh "cat deployment.yaml"
 
                     // Verifica se ci sono modifiche
@@ -46,12 +42,8 @@ node {
     }
 
     stage('Show Commit Diff') {
-        steps {
-            script {
-                // Mostra il diff del commit
-                sh "echo '--- Commit Diff ---'"
-                sh "git diff HEAD^ HEAD"
-            }
-        }
+        // Mostra il diff del commit
+        echo '--- Commit Diff ---'
+        sh "git diff HEAD^ HEAD"
     }
 }
