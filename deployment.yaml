@@ -18,7 +18,7 @@ spec:
         app: flaskdemo
     spec:
       containers:
-      - image: trenditalydocker/webpage:latest
+      - image: trenditalydocker/webpage@sha256:e5b64a3f518936463ec5299a03ee330d46d3632918359b3fae2a95ef430cbad3
         name: flaskdemo
         resources: {}
 status: {}
