@@ -39,7 +39,7 @@ node {
                     sh "git config user.name tmitaly"
                     
                     // Modifica il file deployment.yaml
-                    sh "sed -i 's+trenditalydocker/webpage.*+trenditalydocker/webpage:${IMAGE_DIGEST}+g' deployment.yaml"
+                    sh "sed -i 's+trenditalydocker/webpage.*+trenditalydocker/webpage@${IMAGE_DIGEST}+g' deployment.yaml"
                     sh "sed -i 's+pippo+flaskdemo+g' deployment.yaml"
                     
                     // Aggiungi, committa e push le modifiche
