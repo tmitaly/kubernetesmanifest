@@ -18,7 +18,7 @@ spec:
         app: pippo
     spec:
       containers:
-      - image: trenditalydocker/webpage@latest
+      - image: trenditalydocker/webpage:latest
         name: pippo
         resources: {}
 status: {}
