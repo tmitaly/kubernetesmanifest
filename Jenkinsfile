@@ -1,6 +1,4 @@
 node {
-    def app
-
     stage('Clone repository') {
         checkout scm
     }
@@ -11,7 +9,7 @@ node {
         sh "cat deployment.yaml"
     }
 
-    stage('Update GIT') {
+    stage('Update Deployment YAML') {
         script {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 withCredentials([usernamePassword(credentialsId: 'githubtmitaly', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
@@ -19,14 +17,8 @@ node {
                     sh "git config user.email 'alloftrenditalygithub@trendmicro.com'"
                     sh "git config user.name 'tmitaly'"
 
-                    // Leggi il digest dell'immagine dal parametro DOCKERTAG
-                    def newDigest = env.DOCKERTAG
-                    echo "New Digest: ${newDigest}"
-
-                    // Usa un delimitatore diverso per sed e aggiungi debug per il comando
-                    def sedCommand = "sed -i 's|trenditalydocker/webpage@sha256:[a-f0-9]\\{64\\}|trenditalydocker/webpage@sha256:${newDigest}|g' deployment.yaml"
-                    echo "Running command: ${sedCommand}"
-                    sh "${sedCommand}"
+                    // Modifica il file deployment.yaml
+                    sh "sed -i 's/name: flaskdemo/name: testname/g' deployment.yaml"
 
                     // Mostra le modifiche apportate al file
                     echo '--- Updated deployment.yaml ---'
@@ -38,7 +30,7 @@ node {
                         echo '--- Changes Detected ---'
                         echo "${changes}"
                         sh "git add deployment.yaml"
-                        sh "git commit -m 'Update deployment.yaml with new image digest ${newDigest} by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
+                        sh "git commit -m 'Update deployment.yaml: changed flaskdemo to testname by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
                         sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
                     } else {
                         echo 'No changes detected in deployment.yaml'
