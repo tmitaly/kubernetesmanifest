@@ -30,12 +30,16 @@ node {
                     sh "cat deployment.yaml"
 
                     // Verifica se ci sono modifiche
-                    sh "git diff --exit-code" // Questo non farà nulla se non ci sono modifiche, ma restituirà un errore se ci sono
-
-                    // Aggiungi, commetti e push delle modifiche
-                    sh "git add deployment.yaml"
-                    sh "git commit -m 'Update deployment.yaml with new image digest ${newDigest} by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
-                    sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
+                    def changes = sh(script: "git diff", returnStdout: true).trim()
+                    if (changes) {
+                        echo '--- Changes Detected ---'
+                        echo "${changes}"
+                        sh "git add deployment.yaml"
+                        sh "git commit -m 'Update deployment.yaml with new image digest ${newDigest} by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
+                    } else {
+                        echo 'No changes detected in deployment.yaml'
+                    }
                 }
             }
         }
