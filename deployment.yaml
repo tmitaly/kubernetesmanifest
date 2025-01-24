@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: flaskdemo
-  name: flaskdemo
+    app: tmwebapp
+  name: tmwebapp
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: flaskdemo
+      app: tmwebapp
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: flaskdemo
+        app: tmwebapp
     spec:
       containers:
       - image: trenditalydocker/webpage@sha256:a122d690e5e3b57e5e6427913367bec74da8d05e041fc8d078547ca0123f5055
-        name: flaskdemo
+        name: tmwebapp
         resources: {}
 status: {}
 ---
