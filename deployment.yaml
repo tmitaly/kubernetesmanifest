@@ -18,7 +18,7 @@ spec:
         app: tmwebapp
     spec:
       containers:
-      - image: trenditalydocker/webpage@sha256:ddc403d32cdc7d4d8b42d881dc5d0b0e95cd99cd85ade3be422a8dc9e17def6d
+      - image: trenditalydocker/webpage@sha256:2d114f5192df7d45391b35f61901a6b8623342de66cea57bb2ca0d50341084d6
         name: tmwebapp
         resources: {}
 status: {}
